@@ -122,5 +122,5 @@ if __name__ == '__main__':
     # # ax.set_zlabel('Direction')
     # # plt.show()
 
-    with open('./games/arkanoid/ml/save/clf_KNN_BallAndDirection.pickle', 'wb') as f:
+    with open('./games/arkanoid/ml/save/clf_RANF_BallAndDirection.pickle', 'wb') as f:
         pickle.dump(clf, f)
