@@ -3,11 +3,10 @@ import numpy as np
 import os
 from os import path
 from matplotlib import pyplot as plt
-from sklearn.cluster import KMeans
-from sklearn.neighbors import KNeighborsClassifier
+from sklearn.ensemble import ExtraTreesClassifier
 from sklearn.model_selection import train_test_split
 from sklearn import metrics
-from mpl_toolkits.mplot3d import Axes3D
+# from mpl_toolkits.mplot3d import Axes3D
 
 
 def transformCommand(command):
@@ -61,7 +60,7 @@ def get_vector_pos(bal_now, bal_pre, plt_pos):
                 res_pos -= (res_pos // hit_max) * hit_max
                 res_pos = hit_max - res_pos
     else:
-        res_pos = plt_pos[0] + 20
+        res_pos = 100
     return bal_now, res_pos
 
 
@@ -104,8 +103,8 @@ if __name__ == '__main__':
 
     x_train, x_test, y_train, y_test = train_test_split(
         X, Y, test_size=0.5, random_state=42)
-    clf = KNeighborsClassifier().fit(x_train, y_train)
-
+    clf = ExtraTreesClassifier(n_estimators=15, max_depth=None,
+                               min_samples_split=3, random_state=0).fit(x_train, y_train)
     y_predict = clf.predict(x_test)
     accuracy = metrics.accuracy_score(y_test, y_predict)
     print("Accuracy(正確率) ={:8.3f}%".format(accuracy*100))
