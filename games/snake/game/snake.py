@@ -37,7 +37,7 @@ class Snake:
         """
         pygame.display.init()
         pygame.display.set_caption("Snake")
-        self._screen = pygame.display.set_mode( \
+        self._screen = pygame.display.set_mode(
             (Scene.area_rect.width, Scene.area_rect.height + 25))
 
         self._clock = pygame.time.Clock()
@@ -55,7 +55,7 @@ class Snake:
             command = self._keyboard_action.get_command()
 
             # Record the scene information
-            self._record_scene(command)
+            self._record_scene(command.value)
 
             # Update the scene
             game_status = self._scene.update(command)
@@ -88,16 +88,16 @@ class Snake:
         self._scene.draw_gameobjects(self._screen)
 
         # Draw score
-        font_surface = self._font.render( \
+        font_surface = self._font.render(
             "Score: {}".format(self._scene.score), True, (255, 255, 255))
         self._screen.blit(font_surface, self._font_pos)
 
         pygame.display.flip()
 
-    def _record_scene(self, command):
+    def _record_scene(self, command_str):
         """
         Record the scene information
         """
         scene_info = self._scene.get_scene_info()
-        scene_info.command = command
+        scene_info["command"] = command_str
         self._record_handler(scene_info)
